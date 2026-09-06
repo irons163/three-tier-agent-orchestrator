@@ -21,6 +21,14 @@ description: "讓主線程承擔 GPT-6 Astra 的總指揮角色，將困難但�
 
 每次啟動 Sol Medium 或 Luna Max 時，直接傳入上述 `model` 與 `reasoning_effort`，不要依賴額外的 custom agent 設定檔。不要把 App 的 model picker 是否顯示 Max 當成能力預檢條件；以 subagent 工具宣告與實際啟動結果為準。
 
+啟動前檢查目前 `spawn_agent` schema，明確隔離主線程歷史：
+
+- V2 若支援 `fork_turns`，每次傳入 `fork_turns = "none"`。
+- V1 若只支援 `fork_context`，每次傳入 `fork_context = false`。
+- 不要同時傳入兩者，也不要傳入目前 schema 未宣告的欄位。
+
+Subagent prompt 是唯一可信的任務背景；將必要資訊、範圍與驗收條件明確寫入 prompt，不要依賴繼承的對話歷史。
+
 ### 任一必要能力不可用：完整 hard stop
 
 若缺少 `Sol Medium`、`Luna Max` 或其中任一必要模型／reasoning 組合，立即停止整個工作流，不只是停止委派。除確認 subagent 能力與提供開啟說明外，不得執行任何工具或推進實質任務，包括：

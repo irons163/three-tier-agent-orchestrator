@@ -16,6 +16,7 @@
 
 - 目前主線程直接承擔 Astra 的統籌角色；skill 不自行判定、切換或要求切換主模型。
 - 委派前確認 GPT-5.6 Sol Medium 與 GPT-5.6 Luna Max subagent 是否可用。
+- 啟動 subagent 時隔離主線程歷史：V2 使用 `fork_turns: "none"`，V1 使用 `fork_context: false`。
 - 任一必要模型或指定 reasoning 不可用時，完整停止工作，不以其他模型或較低 reasoning 替代。
 - 能力齊全後，使用明確的目標、範圍、完成條件與驗證方式委派子任務。
 - 由 GPT-6 Astra 檢查重要 diff、測試與證據，並負責最終整合。
@@ -27,7 +28,7 @@
 - Sol Medium subagent 使用 `gpt-5.6-sol` 與 `medium` reasoning effort。
 - Luna Max subagent 使用 `gpt-5.6-luna` 與 `max` reasoning effort。
 
-不需要建立額外的 custom agent 設定檔。Skill 每次啟動 subagent 時都會直接傳入指定的模型與 reasoning effort；實際 subagent 啟動結果才是能力判準。
+不需要建立額外的 custom agent 設定檔。Skill 每次啟動 subagent 時都會直接傳入指定的模型、reasoning effort 與目前 schema 支援的上下文隔離欄位；實際 subagent 啟動結果才是能力判準。
 
 ## 安裝
 
@@ -85,6 +86,7 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 
 - The current main thread assumes the Astra orchestration role; the skill does not detect, switch, or require switching the main model.
 - Verify that the GPT-5.6 Sol Medium and GPT-5.6 Luna Max subagents are available before delegation.
+- Isolate main-thread history when spawning a subagent: use `fork_turns: "none"` on V2 and `fork_context: false` on V1.
 - If any required model or specified reasoning capability is unavailable, stop completely instead of substituting another model or using a lower reasoning level.
 - Once all capabilities are available, delegate subtasks with explicit objectives, scope, completion criteria, and validation methods.
 - GPT-6 Astra reviews important diffs, tests, and evidence, and is responsible for the final integration.
@@ -96,7 +98,7 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 - The Sol Medium subagent uses `gpt-5.6-sol` with `medium` reasoning effort.
 - The Luna Max subagent uses `gpt-5.6-luna` with `max` reasoning effort.
 
-No additional custom agent configuration files are required. The skill passes the specified model and reasoning effort directly whenever it launches a subagent. The actual subagent startup result determines whether the capability is available.
+No additional custom agent configuration files are required. Whenever the skill launches a subagent, it directly passes the specified model, reasoning effort, and the context-isolation field supported by the current schema. The actual subagent startup result determines whether the capability is available.
 
 ### Installation
 
