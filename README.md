@@ -17,6 +17,7 @@
 - 目前主線程直接承擔 Astra 的統籌角色；skill 不自行判定、切換或要求切換主模型。
 - 委派前確認 GPT-5.6 Sol Medium 與 GPT-5.6 Luna Max subagent 是否可用。
 - 啟動 subagent 時隔離主線程歷史：V2 使用 `fork_turns: "none"`，V1 使用 `fork_context: false`。
+- V2 的 subagent 名稱依實際參數使用固定結尾：`_sol_medium` 或 `_luna_max`。
 - 任一必要模型或指定 reasoning 不可用時，完整停止工作，不以其他模型或較低 reasoning 替代。
 - 能力齊全後，使用明確的目標、範圍、完成條件與驗證方式委派子任務。
 - 由 GPT-6 Astra 檢查重要 diff、測試與證據，並負責最終整合。
@@ -29,6 +30,8 @@
 - Luna Max subagent 使用 `gpt-5.6-luna` 與 `max` reasoning effort。
 
 不需要建立額外的 custom agent 設定檔。Skill 每次啟動 subagent 時都會直接傳入指定的模型、reasoning effort 與目前 schema 支援的上下文隔離欄位；實際 subagent 啟動結果才是能力判準。
+
+V2 若支援 `task_name`，名稱會使用可辨識的工作前綴與固定角色結尾，例如 `security_review_sol_medium` 或 `run_tests_luna_max`。Skill 會在啟動前確認名稱結尾與實際 model／reasoning 一致；V1 不傳入此欄位。
 
 ## 安裝
 
@@ -87,6 +90,7 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 - The current main thread assumes the Astra orchestration role; the skill does not detect, switch, or require switching the main model.
 - Verify that the GPT-5.6 Sol Medium and GPT-5.6 Luna Max subagents are available before delegation.
 - Isolate main-thread history when spawning a subagent: use `fork_turns: "none"` on V2 and `fork_context: false` on V1.
+- On V2, derive each subagent name from its actual launch arguments, using the fixed suffix `_sol_medium` or `_luna_max`.
 - If any required model or specified reasoning capability is unavailable, stop completely instead of substituting another model or using a lower reasoning level.
 - Once all capabilities are available, delegate subtasks with explicit objectives, scope, completion criteria, and validation methods.
 - GPT-6 Astra reviews important diffs, tests, and evidence, and is responsible for the final integration.
@@ -99,6 +103,8 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 - The Luna Max subagent uses `gpt-5.6-luna` with `max` reasoning effort.
 
 No additional custom agent configuration files are required. Whenever the skill launches a subagent, it directly passes the specified model, reasoning effort, and the context-isolation field supported by the current schema. The actual subagent startup result determines whether the capability is available.
+
+When V2 supports `task_name`, the name uses a recognizable task prefix and a fixed role suffix, such as `security_review_sol_medium` or `run_tests_luna_max`. Before launch, the skill verifies that the suffix matches the actual model and reasoning arguments. V1 does not receive this field.
 
 ### Installation
 

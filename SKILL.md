@@ -65,6 +65,15 @@ Subagent prompt 是唯一可信的任務背景；將必要資訊、範圍與驗�
 
 ## 3. 用明確契約委派
 
+V2 的 `spawn_agent` 若支援 `task_name`，先選定實際 `model` 與 `reasoning_effort`，再依下表產生名稱結尾：
+
+| Model | Reasoning | `task_name` 結尾 | 範例 |
+| --- | --- | --- | --- |
+| `gpt-5.6-sol` | `medium` | `_sol_medium` | `security_review_sol_medium` |
+| `gpt-5.6-luna` | `max` | `_luna_max` | `run_tests_luna_max` |
+
+`task_name` 使用簡短、可辨識的工作前綴，加上固定角色結尾；只使用小寫字母、數字與底線。啟動前比較名稱結尾與實際 model／reasoning，兩者不一致時不得呼叫。名稱只是可見標籤，實際 `model` 與 `reasoning_effort` 才是權威。V1 或任何未宣告 `task_name` 的 schema 不要傳入此欄位。
+
 每個子代理 prompt 都要包含：
 
 - **目標**：只描述一個可獨立完成的成果。
