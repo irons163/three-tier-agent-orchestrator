@@ -2,6 +2,8 @@
 
 > 本 README 以中文為主，英文版請見文末。
 
+English version skill is [https://github.com/irons163/three-tier-agent-symphony](https://github.com/irons163/three-tier-agent-symphony).
+
 一個 Codex skill，讓目前主線程承擔 GPT-6 Astra 的總指揮角色：理解目標、拆分任務、做架構決策、檢查結果並整合輸出；並依工作性質把獨立子任務交給 GPT-5.6 Sol Medium 與 GPT-5.6 Luna Max。
 
 ## 角色分工
