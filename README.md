@@ -4,20 +4,20 @@
 
 English version skill is [https://github.com/irons163/three-tier-agent-symphony](https://github.com/irons163/three-tier-agent-symphony).
 
-一個 Codex skill，讓目前主線程承擔 GPT-6 Astra 的總指揮角色：理解目標、拆分任務、做架構決策、檢查結果並整合輸出；並依工作性質把獨立子任務交給 GPT-5.6 Sol Max 與 GPT-5.6 Luna Max。
+一個 Codex skill，讓目前主線程承擔 GPT-6 Astra 的總指揮角色：理解目標、拆分任務、做架構決策、檢查結果並整合輸出；並依工作性質把獨立子任務交給 GPT-6 Sol Max 與 GPT-6 Luna Max。
 
 ## 角色分工
 
 | 角色 | 責任 |
 | --- | --- |
 | GPT-6 Astra | 理解目標、拆分任務、架構決策、檢查結果與整合輸出 |
-| GPT-5.6 Sol Max | 困難但邊界清楚的分析、實作、深度 code review 與複雜 debugging |
-| GPT-5.6 Luna Max | 清楚、可重複且容易驗證的搜尋、測試、重現、機械式修改與摘要 |
+| GPT-6 Sol Max | 困難但邊界清楚的分析、實作、深度 code review 與複雜 debugging |
+| GPT-6 Luna Max | 清楚、可重複且容易驗證的搜尋、測試、重現、機械式修改與摘要 |
 
 ## 主要行為
 
 - 目前主線程直接承擔 Astra 的統籌角色；skill 不自行判定、切換或要求切換主模型。
-- 委派前確認 GPT-5.6 Sol Max 與 GPT-5.6 Luna Max subagent 是否可用。
+- 委派前確認 GPT-6 Sol Max 與 GPT-6 Luna Max subagent 是否可用。
 - 啟動 subagent 時隔離主線程歷史：V2 使用 `fork_turns: "none"`，V1 使用 `fork_context: false`。
 - V2 的 subagent 名稱依實際參數使用固定結尾：`_sol_max` 或 `_luna_max`。
 - 任一必要模型或指定 reasoning 不可用時，完整停止工作，不以其他模型或較低 reasoning 替代。
@@ -28,8 +28,8 @@ English version skill is [https://github.com/irons163/three-tier-agent-symphony]
 
 - Codex 支援 skills 與 subagents，且 subagent 工具可直接指定模型與 reasoning effort。
 - 建議主線程選用 `gpt-6-astra`，但這不是 skill 的 hard-stop 條件。
-- Sol Max subagent 使用 `gpt-5.6-sol` 與 `max` reasoning effort。
-- Luna Max subagent 使用 `gpt-5.6-luna` 與 `max` reasoning effort。
+- Sol Max subagent 使用 `gpt-6-sol` 與 `max` reasoning effort。
+- Luna Max subagent 使用 `gpt-6-luna` 與 `max` reasoning effort。
 
 不需要建立額外的 custom agent 設定檔。Skill 每次啟動 subagent 時都會直接傳入指定的模型、reasoning effort 與目前 schema 支援的上下文隔離欄位；實際 subagent 啟動結果才是能力判準。
 
@@ -56,7 +56,7 @@ $three-tier-agent-orchestrator
 也可以直接描述工作，例如：
 
 ```text
-使用 Three-Tier Agent Orchestrator 檢查這個專案：GPT-6 Astra 負責理解目標與整合，GPT-5.6 Sol Max 做架構與安全審查，GPT-5.6 Luna Max 執行測試與整理錯誤。
+使用 Three-Tier Agent Orchestrator 檢查這個專案：GPT-6 Astra 負責理解目標與整合，GPT-6 Sol Max 做架構與安全審查，GPT-6 Luna Max 執行測試與整理錯誤。
 ```
 
 ## Repository 結構
@@ -77,20 +77,20 @@ $three-tier-agent-orchestrator
 
 ### Three-Tier Agent Orchestrator
 
-A Codex skill that assigns the current main thread the GPT-6 Astra orchestration role: understanding the objective, breaking down tasks, making architectural decisions, reviewing results, and integrating the final output while delegating independent subtasks to GPT-5.6 Sol Max and GPT-5.6 Luna Max based on the nature of the work.
+A Codex skill that assigns the current main thread the GPT-6 Astra orchestration role: understanding the objective, breaking down tasks, making architectural decisions, reviewing results, and integrating the final output while delegating independent subtasks to GPT-6 Sol Max and GPT-6 Luna Max based on the nature of the work.
 
 ### Role assignments
 
 | Role | Responsibilities |
 | --- | --- |
 | GPT-6 Astra | Understand the objective, break down tasks, make architectural decisions, review results, and integrate the final output |
-| GPT-5.6 Sol Max | Handle difficult but clearly bounded analysis and implementation, in-depth code review, and complex debugging |
-| GPT-5.6 Luna Max | Perform clear, repeatable, and easily verifiable searches, tests, reproductions, mechanical edits, and summarization |
+| GPT-6 Sol Max | Handle difficult but clearly bounded analysis and implementation, in-depth code review, and complex debugging |
+| GPT-6 Luna Max | Perform clear, repeatable, and easily verifiable searches, tests, reproductions, mechanical edits, and summarization |
 
 ### Core behavior
 
 - The current main thread assumes the Astra orchestration role; the skill does not detect, switch, or require switching the main model.
-- Verify that the GPT-5.6 Sol Max and GPT-5.6 Luna Max subagents are available before delegation.
+- Verify that the GPT-6 Sol Max and GPT-6 Luna Max subagents are available before delegation.
 - Isolate main-thread history when spawning a subagent: use `fork_turns: "none"` on V2 and `fork_context: false` on V1.
 - On V2, derive each subagent name from its actual launch arguments, using the fixed suffix `_sol_max` or `_luna_max`.
 - If any required model or specified reasoning capability is unavailable, stop completely instead of substituting another model or using a lower reasoning level.
@@ -101,8 +101,8 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 
 - Codex supports skills and subagents, and the subagent tool can specify the model and reasoning effort directly.
 - Using `gpt-6-astra` for the main thread is recommended but is not a hard-stop condition.
-- The Sol Max subagent uses `gpt-5.6-sol` with `max` reasoning effort.
-- The Luna Max subagent uses `gpt-5.6-luna` with `max` reasoning effort.
+- The Sol Max subagent uses `gpt-6-sol` with `max` reasoning effort.
+- The Luna Max subagent uses `gpt-6-luna` with `max` reasoning effort.
 
 No additional custom agent configuration files are required. Whenever the skill launches a subagent, it directly passes the specified model, reasoning effort, and the context-isolation field supported by the current schema. The actual subagent startup result determines whether the capability is available.
 
@@ -129,7 +129,7 @@ $three-tier-agent-orchestrator
 You can also describe the work directly, for example:
 
 ```text
-Use the Three-Tier Agent Orchestrator to review this project: GPT-6 Astra handles objective understanding and integration, GPT-5.6 Sol Max performs the architecture and security review, and GPT-5.6 Luna Max runs tests and organizes the errors.
+Use the Three-Tier Agent Orchestrator to review this project: GPT-6 Astra handles objective understanding and integration, GPT-6 Sol Max performs the architecture and security review, and GPT-6 Luna Max runs tests and organizes the errors.
 ```
 
 ### Repository structure

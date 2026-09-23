@@ -1,4 +1,4 @@
 interface:
   display_name: "Three-Tier Agent Orchestrator"
   short_description: "Coordinate a three-tier multi-agent workflow"
-  default_prompt: "Use $three-tier-agent-orchestrator to coordinate this coding task with GPT-6 Astra, GPT-5.6 Sol Max, and GPT-5.6 Luna Max."
+  default_prompt: "Use $three-tier-agent-orchestrator to coordinate this coding task with GPT-6 Astra, GPT-6 Sol Max, and GPT-6 Luna Max."

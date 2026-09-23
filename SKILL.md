@@ -1,6 +1,6 @@
 ---
 name: three-tier-agent-orchestrator
-description: "讓主線程承擔 GPT-6 Astra 的總指揮角色，將困難但邊界清楚的工作交給 GPT-5.6 Sol Max，將清楚、可重複的工作交給 GPT-5.6 Luna Max。當使用者要求 Astra 統籌、Sol Max 或 Luna Max subagent、分層 multi-agent coding、平行 code review、模組分析、獨立功能實作、測試、debugging 或整合結果時使用；不要自行判定或要求切換主模型，委派前只檢查必要 subagent 的模型與 reasoning 是否可用。"
+description: "讓主線程承擔 GPT-6 Astra 的總指揮角色，將困難但邊界清楚的工作交給 GPT-6 Sol Max，將清楚、可重複的工作交給 GPT-6 Luna Max。當使用者要求 Astra 統籌、Sol Max 或 Luna Max subagent、分層 multi-agent coding、平行 code review、模組分析、獨立功能實作、測試、debugging 或整合結果時使用；不要自行判定或要求切換主模型，委派前只檢查必要 subagent 的模型與 reasoning 是否可用。"
 ---
 
 # Three-Tier Agent Orchestration
@@ -14,8 +14,8 @@ description: "讓主線程承擔 GPT-6 Astra 的總指揮角色，將困難但�
 在實際委派前，檢查目前執行環境暴露的 subagent 能力：
 
 1. 確認 subagent 工具可直接指定以下組合：
-   - Sol Max：`model = "gpt-5.6-sol"`、`reasoning_effort = "max"`。
-   - Luna Max：`model = "gpt-5.6-luna"`、`reasoning_effort = "max"`。
+   - Sol Max：`model = "gpt-6-sol"`、`reasoning_effort = "max"`。
+   - Luna Max：`model = "gpt-6-luna"`、`reasoning_effort = "max"`。
 2. 若工具宣告支援、但實際啟動遭模型或 reasoning 相容性拒絕，將該能力視為不可用。
 3. 只有 Sol Max 與 Luna Max 都確認可用後，才能進入第 2 節。
 
@@ -46,8 +46,8 @@ Subagent prompt 是唯一可信的任務背景；將必要資訊、範圍與驗�
 
 準確指出缺少的是哪個模型或 reasoning 組合，並請使用者在 Codex App 的 model／reasoning 控制中確認：
 
-- Sol Max 需要 `gpt-5.6-sol` 與 `max`。
-- Luna Max 需要 `gpt-5.6-luna` 與 `max`。
+- Sol Max 需要 `gpt-6-sol` 與 `max`。
+- Luna Max 需要 `gpt-6-luna` 與 `max`。
 
 若選項不存在，請使用者檢查帳號方案、工作區管理員模型政策與目前 provider。Skill 本身無法解鎖未提供的模型。能力重新可用前持續 hard stop。
 
@@ -58,8 +58,8 @@ Subagent prompt 是唯一可信的任務背景；將必要資訊、範圍與驗�
 | 角色 | 分派內容 |
 | --- | --- |
 | GPT-6 Astra 主線程 | 理解目標、拆分任務、架構決策、檢查結果與整合輸出 |
-| GPT-5.6 Sol Max | 困難但可封裝的模組分析、非平凡獨立實作、深度程式碼審查、安全或併發推理、複雜根因排查 |
-| GPT-5.6 Luna Max | 程式碼搜尋與事實整理、測試執行與錯誤重現、日誌分類、機械式修改、規格非常明確的小功能與結構化摘要 |
+| GPT-6 Sol Max | 困難但可封裝的模組分析、非平凡獨立實作、深度程式碼審查、安全或併發推理、複雜根因排查 |
+| GPT-6 Luna Max | 程式碼搜尋與事實整理、測試執行與錯誤重現、日誌分類、機械式修改、規格非常明確的小功能與結構化摘要 |
 
 不要為了使用子代理而委派微小工作。核心需求仍不清楚時，先由 Astra 解決，不要只靠提高子代理 reasoning effort。
 
@@ -69,8 +69,8 @@ V2 的 `spawn_agent` 若支援 `task_name`，先選定實際 `model` 與 `reason
 
 | Model | Reasoning | `task_name` 結尾 | 範例 |
 | --- | --- | --- | --- |
-| `gpt-5.6-sol` | `max` | `_sol_max` | `security_review_sol_max` |
-| `gpt-5.6-luna` | `max` | `_luna_max` | `run_tests_luna_max` |
+| `gpt-6-sol` | `max` | `_sol_max` | `security_review_sol_max` |
+| `gpt-6-luna` | `max` | `_luna_max` | `run_tests_luna_max` |
 
 `task_name` 使用簡短、可辨識的工作前綴，加上固定角色結尾；只使用小寫字母、數字與底線。啟動前比較名稱結尾與實際 model／reasoning，兩者不一致時不得呼叫。名稱只是可見標籤，實際 `model` 與 `reasoning_effort` 才是權威。V1 或任何未宣告 `task_name` 的 schema 不要傳入此欄位。
 
