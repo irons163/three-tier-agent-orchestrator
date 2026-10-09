@@ -16,6 +16,7 @@ English version skill is [https://github.com/irons163/three-tier-agent-symphony]
 
 ## 主要行為
 
+- 僅在使用者輸入 `$three-tier-agent-orchestrator` 或明確點名要求使用此 skill 執行任務時啟用。
 - 目前主線程直接承擔 Astra 的統籌角色；skill 不自行判定、切換或要求切換主模型。
 - 委派前確認 GPT-6.1 Sol Max 與 GPT-6 Luna Max subagent 是否可用。
 - 啟動 subagent 時隔離主線程歷史：V2 使用 `fork_turns: "none"`，V1 使用 `fork_context: false`。
@@ -47,13 +48,13 @@ git clone https://github.com/irons163/three-tier-agent-orchestrator.git "${CODEX
 
 ## 使用
 
-在 Codex prompt 明確啟用：
+此 skill 需要使用者主動啟用。在 Codex prompt 輸入：
 
 ```text
 $three-tier-agent-orchestrator
 ```
 
-也可以直接描述工作，例如：
+也可以明確點名要求使用此 skill，例如：
 
 ```text
 使用 Three-Tier Agent Orchestrator 檢查這個專案：GPT-6 Astra 負責理解目標與整合，GPT-6.1 Sol Max 做架構與安全審查，GPT-6 Luna Max 執行測試與整理錯誤。
@@ -89,6 +90,7 @@ A Codex skill that assigns the current main thread the GPT-6 Astra orchestration
 
 ### Core behavior
 
+- Activate only when the user invokes `$three-tier-agent-orchestrator` or explicitly asks to use this skill by name for a task.
 - The current main thread assumes the Astra orchestration role; the skill does not detect, switch, or require switching the main model.
 - Verify that the GPT-6.1 Sol Max and GPT-6 Luna Max subagents are available before delegation.
 - Isolate main-thread history when spawning a subagent: use `fork_turns: "none"` on V2 and `fork_context: false` on V1.
@@ -120,13 +122,13 @@ If the current task does not reload the skill, create a new task. If it still do
 
 ### Usage
 
-Explicitly enable the skill in a Codex prompt:
+This skill requires explicit invocation. Enter the following in a Codex prompt:
 
 ```text
 $three-tier-agent-orchestrator
 ```
 
-You can also describe the work directly, for example:
+You can also explicitly ask to use this skill by name, for example:
 
 ```text
 Use the Three-Tier Agent Orchestrator to review this project: GPT-6 Astra handles objective understanding and integration, GPT-6.1 Sol Max performs the architecture and security review, and GPT-6 Luna Max runs tests and organizes the errors.

@@ -1,11 +1,15 @@
 ---
 name: three-tier-agent-orchestrator
-description: "讓主線程承擔 GPT-6 Astra 的總指揮角色，將困難但邊界清楚的工作交給 GPT-6.1 Sol Max，將清楚、可重複的工作交給 GPT-6 Luna Max。當使用者要求 Astra 統籌、Sol Max 或 Luna Max subagent、分層 multi-agent coding、平行 code review、模組分析、獨立功能實作、測試、debugging 或整合結果時使用；不要自行判定或要求切換主模型，委派前只檢查必要 subagent 的模型與 reasoning 是否可用。"
+description: "僅在使用者明確要求用 $three-tier-agent-orchestrator 或 Three-Tier Agent Orchestrator 執行任務時啟用。由主線程承擔 GPT-6 Astra 統籌角色，將困難但邊界清楚的工作交給 GPT-6.1 Sol Max，將清楚、可重複的工作交給 GPT-6 Luna Max。詢問、安裝、修改或發布本 skill 不啟用其委派工作流；委派前確認必要 subagent 的模型與 reasoning 可用。"
 ---
 
 # Three-Tier Agent Orchestration
 
 讓目前主線程承擔 Astra 的統籌角色，負責理解目標、拆分任務、架構判斷、驗收與整合。把困難但邊界明確的工作交給 Sol Max，把清楚、可重複且容易驗證的工作交給 Luna Max。
+
+## 啟用條件
+
+只有使用者明確要求用本 skill 執行任務時才啟用，例如輸入 `$three-tier-agent-orchestrator`，或「使用 Three-Tier Agent Orchestrator 檢查這個專案」。任務類型或模型名稱相符，不代表已啟用。詢問、安裝、修改或發布本 skill 屬於管理操作，不會啟用委派工作流。
 
 ## 1. 委派前確認 subagent 能力
 
