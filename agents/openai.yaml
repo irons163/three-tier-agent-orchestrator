@@ -1,7 +1,7 @@
 interface:
   display_name: "Three-Tier Agent Orchestrator"
-  short_description: "Coordinate a three-tier multi-agent workflow"
-  default_prompt: "Use $three-tier-agent-orchestrator to coordinate this coding task with GPT-6 Astra, GPT-6.1 Sol Max, and GPT-6 Luna Max."
+  short_description: "Coordinate Sol, Terra, and Luna across three tiers"
+  default_prompt: "Use $three-tier-agent-orchestrator for this task: the main thread coordinates in the Sol role, GPT-6.1 Sol XHigh handles complex subtasks, GPT-6.1 Terra High handles visual, computer-use, writing, and scoped coding work (XHigh when needed), and GPT-6 Luna Max handles repeatable work."
 
 policy:
   allow_implicit_invocation: false
