@@ -1,11 +1,11 @@
 ---
 name: three-tier-agent-orchestrator
-description: "僅在使用者明確要求用 $three-tier-agent-orchestrator 或 Three-Tier Agent Orchestrator 執行任務時啟用。由主線程統籌（建議 GPT-6.2 Astra 或 GPT-6.2 Sol XHigh），以 GPT-6.1 Sol XHigh 處理複雜子任務、GPT-6.1 Terra 處理視覺與操作、GPT-6.2 Sol High 處理可重複工作。詢問、安裝、修改或發布本 skill 不啟用委派；委派前確認必要模型與 reasoning 可用。"
+description: "僅在使用者明確要求用 $three-tier-agent-orchestrator 或 Three-Tier Agent Orchestrator 執行任務時啟用。由主線程統籌（建議 GPT-6.2 Astra Med 或 GPT-6.2 Sol XHigh），以 GPT-6.1 Sol XHigh 處理複雜子任務、GPT-6.1 Terra 處理視覺與操作、GPT-6.2 Sol High 處理可重複工作。詢問、安裝、修改或發布本 skill 不啟用委派；委派前確認必要模型與 reasoning 可用。"
 ---
 
 # Three-Tier Agent Orchestration
 
-讓目前主線程負責理解目標、拆分任務、架構判斷、複雜推理、驗收與整合，建議主模型為 GPT-6.2 Astra 或 GPT-6.2 Sol XHigh。獨立的困難工作可交給 Sol 6.1 XHigh；視覺理解、電腦操作、文字撰修與範圍明確的程式修正交給 Terra；清楚、可重複且容易驗證的工作交給 Sol 6.2 High。三層依職責分為統籌與深度分析、視覺與操作、可重複工作；主線程與 Sol 6.1 XHigh 子代理同屬第一層。
+讓目前主線程負責理解目標、拆分任務、架構判斷、複雜推理、驗收與整合，建議主模型為 GPT-6.2 Astra Med 或 GPT-6.2 Sol XHigh。獨立的困難工作可交給 Sol 6.1 XHigh；視覺理解、電腦操作、文字撰修與範圍明確的程式修正交給 Terra；清楚、可重複且容易驗證的工作交給 Sol 6.2 High。三層依職責分為統籌與深度分析、視覺與操作、可重複工作；主線程與 Sol 6.1 XHigh 子代理同屬第一層。
 
 ## 啟用條件
 
@@ -13,7 +13,7 @@ description: "僅在使用者明確要求用 $three-tier-agent-orchestrator 或 
 
 ## 1. 委派前確認 subagent 能力
 
-目前主線程直接承擔統籌角色，建議主模型為 `gpt-6.2-astra`，或 `gpt-6.2-sol` 搭配 `xhigh` reasoning。Skill 無法可靠驗證或切換主線程的模型，因此不得根據自我辨識、模型名稱、系統提示或缺少可觀察資訊而停止工作，也不得要求使用者先切換主模型或取消模型限制。主模型建議不代表已驗證主線程的實際模型。
+目前主線程直接承擔統籌角色，建議主模型為 `gpt-6.2-astra` 搭配 `medium`，或 `gpt-6.2-sol` 搭配 `xhigh` reasoning。Skill 無法可靠驗證或切換主線程的模型，因此不得根據自我辨識、模型名稱、系統提示或缺少可觀察資訊而停止工作，也不得要求使用者先切換主模型或取消模型限制。主模型建議不代表已驗證主線程的實際模型。
 
 在實際委派前，檢查目前執行環境暴露的 subagent 能力：
 
@@ -63,7 +63,7 @@ Subagent prompt 是唯一可信的任務背景；將必要資訊、範圍與驗�
 
 | 角色 | 分派內容 |
 | --- | --- |
-| 統籌主線程（建議 GPT-6.2 Astra／GPT-6.2 Sol XHigh） | 理解目標、拆分任務、架構決策、跨模組複雜推理、檢查結果與整合輸出 |
+| 統籌主線程（建議 GPT-6.2 Astra Med／GPT-6.2 Sol XHigh） | 理解目標、拆分任務、架構決策、跨模組複雜推理、檢查結果與整合輸出 |
 | GPT-6.1 Sol XHigh 子代理 | 困難但可封裝的模組分析、非平凡獨立實作、深度程式碼審查、安全或併發推理、複雜根因排查 |
 | GPT-6.1 Terra High（預設）／XHigh（按需） | 截圖、圖表與技術圖面理解，瀏覽器／桌面操作，表單與資料核對，依已提供材料撰寫或改寫文字，以及驗收條件明確的局部程式與 UI 修正 |
 | GPT-6.2 Sol High 子代理 | 程式碼搜尋與事實整理、測試執行與錯誤重現、日誌分類、機械式修改、規格非常明確的小功能與結構化摘要 |

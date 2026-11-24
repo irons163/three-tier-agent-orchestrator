@@ -4,13 +4,13 @@
 
 English version skill is [https://github.com/irons163/three-tier-agent-symphony](https://github.com/irons163/three-tier-agent-symphony).
 
-一個 Codex skill，採用 **統籌與深度分析、視覺與操作、可重複工作**的三層分工。目前主線程負責理解目標、拆分任務、架構決策、驗收與整合，建議使用 **GPT-6.2 Astra 或 GPT-6.2 Sol XHigh**，並按工作性質分派獨立子任務。
+一個 Codex skill，採用 **統籌與深度分析、視覺與操作、可重複工作**的三層分工。目前主線程負責理解目標、拆分任務、架構決策、驗收與整合，建議使用 **GPT-6.2 Astra Med 或 GPT-6.2 Sol XHigh**，並按工作性質分派獨立子任務。
 
 ## 角色分工
 
 | 角色 | 責任 |
 | --- | --- |
-| 統籌主線程（建議 GPT-6.2 Astra／GPT-6.2 Sol XHigh） | 理解目標、拆分任務、架構決策、跨模組複雜推理、檢查結果與整合輸出 |
+| 統籌主線程（建議 GPT-6.2 Astra Med／GPT-6.2 Sol XHigh） | 理解目標、拆分任務、架構決策、跨模組複雜推理、檢查結果與整合輸出 |
 | GPT-6.1 Sol XHigh 子代理 | 困難但邊界清楚的分析、實作、深度 code review 與複雜 debugging |
 | GPT-6.1 Terra High／XHigh | 視覺理解、瀏覽器與桌面操作、表單與資料核對、文字撰修，以及範圍與驗收條件明確的程式／UI 修正 |
 | GPT-6.2 Sol High 子代理 | 清楚、可重複且容易驗證的搜尋、測試、重現、機械式修改與摘要 |
@@ -31,7 +31,7 @@ English version skill is [https://github.com/irons163/three-tier-agent-symphony]
 ## 主要行為
 
 - 僅在使用者輸入 `$three-tier-agent-orchestrator` 或明確點名要求使用此 skill 執行任務時啟用。
-- 目前主線程直接承擔統籌角色，建議使用 GPT-6.2 Astra 或 GPT-6.2 Sol XHigh；skill 不自行判定、切換或要求切換主模型。
+- 目前主線程直接承擔統籌角色，建議使用 GPT-6.2 Astra Med 或 GPT-6.2 Sol XHigh；skill 不自行判定、切換或要求切換主模型。
 - 委派前確認 GPT-6.1 Sol XHigh、GPT-6.1 Terra High 與 GPT-6.2 Sol High subagent 是否可用；選用 Terra XHigh 時另行確認該組合。
 - 啟動 subagent 時隔離主線程歷史：V2 使用 `fork_turns: "none"`，V1 使用 `fork_context: false`。
 - V2 的 subagent 名稱依實際參數使用固定結尾：`_sol_xhigh`、`_terra_high`、`_terra_xhigh` 或 `_sol_6_2_high`。
@@ -43,7 +43,7 @@ English version skill is [https://github.com/irons163/three-tier-agent-symphony]
 ## 必要條件
 
 - Codex 支援 skills 與 subagents，且 subagent 工具可直接指定模型與 reasoning effort。
-- 建議主線程選用 `gpt-6.2-astra`，或 `gpt-6.2-sol` 搭配 `xhigh`，但這不是 skill 的 hard-stop 條件，也不代表 skill 已驗證主模型。
+- 建議主線程選用 `gpt-6.2-astra` 搭配 `medium`，或 `gpt-6.2-sol` 搭配 `xhigh`，但這不是 skill 的 hard-stop 條件，也不代表 skill 已驗證主模型。
 - Sol 6.1 XHigh subagent 使用 `gpt-6.1-sol` 與 `xhigh` reasoning effort。
 - Terra subagent 預設使用 `gpt-6.1-terra` 與 `high`；按需選用 `xhigh`，須另外確認可用。
 - Sol 6.2 High subagent 使用 `gpt-6.2-sol` 與 `high` reasoning effort。
@@ -100,13 +100,13 @@ $three-tier-agent-orchestrator
 
 ### Three-Tier Agent Orchestrator
 
-A Codex skill with three tiers: **orchestration and deep analysis, visual and computer-use work, and repeatable work**. The current main thread owns the objective, task breakdown, architecture, acceptance, and integration. **GPT-6.2 Astra or GPT-6.2 Sol XHigh** is recommended for the main thread, which delegates independent subtasks according to their needs.
+A Codex skill with three tiers: **orchestration and deep analysis, visual and computer-use work, and repeatable work**. The current main thread owns the objective, task breakdown, architecture, acceptance, and integration. **GPT-6.2 Astra Med or GPT-6.2 Sol XHigh** is recommended for the main thread, which delegates independent subtasks according to their needs.
 
 ### Role assignments
 
 | Role | Responsibilities |
 | --- | --- |
-| Orchestration main thread (GPT-6.2 Astra / GPT-6.2 Sol XHigh recommended) | Understand the objective, break down tasks, make architectural decisions, handle complex cross-module reasoning, review results, and integrate the final output |
+| Orchestration main thread (GPT-6.2 Astra Med / GPT-6.2 Sol XHigh recommended) | Understand the objective, break down tasks, make architectural decisions, handle complex cross-module reasoning, review results, and integrate the final output |
 | GPT-6.1 Sol XHigh subagent | Handle difficult but clearly bounded analysis and implementation, in-depth code review, and complex debugging |
 | GPT-6.1 Terra High / XHigh | Interpret visuals, operate browsers and desktop apps, check forms and data, draft and revise text, and make scoped code or UI fixes with clear acceptance criteria |
 | GPT-6.2 Sol High subagent | Perform clear, repeatable, and easily verifiable searches, tests, reproductions, mechanical edits, and summarization |
@@ -127,7 +127,7 @@ For example, Terra fixes a local UI issue from screenshots, Sol 6.2 High runs re
 ### Core behavior
 
 - Activate only when the user invokes `$three-tier-agent-orchestrator` or explicitly asks to use this skill by name for a task.
-- The current main thread assumes the orchestration role, with GPT-6.2 Astra or GPT-6.2 Sol XHigh recommended; the skill does not detect, switch, or require switching the main model.
+- The current main thread assumes the orchestration role, with GPT-6.2 Astra Med or GPT-6.2 Sol XHigh recommended; the skill does not detect, switch, or require switching the main model.
 - Verify that GPT-6.1 Sol XHigh, GPT-6.1 Terra High, and GPT-6.2 Sol High subagents are available before delegation. Also verify Terra XHigh if selected.
 - Isolate main-thread history when spawning a subagent: use `fork_turns: "none"` on V2 and `fork_context: false` on V1.
 - On V2, derive each subagent name from its actual launch arguments, using `_sol_xhigh`, `_terra_high`, `_terra_xhigh`, or `_sol_6_2_high`.
@@ -139,7 +139,7 @@ For example, Terra fixes a local UI issue from screenshots, Sol 6.2 High runs re
 ### Requirements
 
 - Codex supports skills and subagents, and the subagent tool can specify the model and reasoning effort directly.
-- Using `gpt-6.2-astra`, or `gpt-6.2-sol` with `xhigh`, for the main thread is recommended but is not a hard-stop condition or a claim that the skill has verified the main model.
+- Using `gpt-6.2-astra` with `medium`, or `gpt-6.2-sol` with `xhigh`, for the main thread is recommended but is not a hard-stop condition or a claim that the skill has verified the main model.
 - The Sol 6.1 XHigh subagent uses `gpt-6.1-sol` with `xhigh` reasoning effort.
 - Terra subagents use `gpt-6.1-terra` with `high` by default. Select `xhigh` when needed and verify that combination separately.
 - The Sol 6.2 High subagent uses `gpt-6.2-sol` with `high` reasoning effort.
