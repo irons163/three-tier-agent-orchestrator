@@ -1,7 +1,7 @@
 interface:
   display_name: "Three-Tier Agent Orchestrator"
-  short_description: "Coordinate Sol 6.1, Sol 6.2, and Luna across three tiers"
-  default_prompt: "Use $three-tier-agent-orchestrator for this task: the main thread coordinates in the Sol 6.1 role, GPT-6.1 Sol XHigh handles complex subtasks, GPT-6.2 Sol XHigh handles visual, computer-use, writing, and scoped coding work, and GPT-6 Luna Max handles repeatable work."
+  short_description: "Coordinate Sol, Terra, and Luna across three tiers"
+  default_prompt: "Use $three-tier-agent-orchestrator for this task: the main thread coordinates in the Sol role, GPT-6.1 Sol XHigh handles complex subtasks, GPT-6.1 Terra High handles visual, computer-use, writing, and scoped coding work (XHigh when needed), and GPT-6 Luna Max handles repeatable work."
 
 policy:
   allow_implicit_invocation: false
