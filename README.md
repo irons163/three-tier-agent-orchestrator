@@ -17,6 +17,21 @@ English version skill is [https://github.com/irons163/three-tier-agent-symphony]
 
 三層依職責劃分；主線程與 Sol 6.1 XHigh 子代理屬於統籌與深度分析層，Terra 負責視覺與操作，Sol 6.2 High 負責可重複工作。
 
+## 為什麼仍保留 GPT-6.1 Sol？
+
+GPT-6.1 Sol 在部分公開編程評測中仍與 GPT-6.2 Sol 持平或領先，因此本 skill 保留 **GPT-6.1 Sol XHigh**，負責困難實作、深度 code review 與複雜 debugging。
+
+以下為 2026-11-25 查核的 [Artificial Analysis Codex 評測表](https://artificialanalysis.ai/agents/coding-agents/comparisons/codex-vs-qwen-code#models)；兩個模型都使用 **Codex harness、Max reasoning**，分數越高越好：
+
+| 評測 | GPT-6.1 Sol Max | GPT-6.2 Sol Max |
+| --- | --- | --- |
+| Coding Agent Index v2.1（綜合指數） | 52 | 49 |
+| FrontierCode-AA 2.0 | 42 | 42 |
+| SWE-Atlas-QnA-AA | 60 | 46 |
+| Terminal-Bench 4.1 | 54 | 58 |
+
+這些結果支持按任務保留模型：6.1 在上述綜合指數略勝、部分項目持平，6.2 則在終端任務領先。評測使用的 Max 與本 skill 的 XHigh／High 配置不同，實際選型仍應依專案測試與驗收結果判斷。
+
 ## 為何這樣安排 Terra
 
 根據 [OpenAI 官方介紹](https://openai.com/zh-Hant/index/introducing-gpt-6-1-terra/)與 [OpenAI Docs 模型選擇指引](https://developers.openai.com/api/docs/guides/model-selection)，Terra 適合視覺、電腦操作、文字與局部程式工作，最複雜的程式工作仍適合 Sol。因此本 skill 採以下路由；這是工作流設計，不是每項任務的效能保證。
@@ -112,6 +127,21 @@ A Codex skill with three tiers: **orchestration and deep analysis, visual and co
 | GPT-6.2 Sol High subagent | Perform clear, repeatable, and easily verifiable searches, tests, reproductions, mechanical edits, and summarization |
 
 The three tiers are defined by responsibility: the main thread and Sol 6.1 XHigh subagents share the orchestration and deep-analysis tier, Terra handles visual and computer-use work, and Sol 6.2 High handles repeatable work.
+
+### Why keep GPT-6.1 Sol?
+
+GPT-6.1 Sol still matches or outperforms GPT-6.2 Sol on some public coding evaluations. This skill therefore retains **GPT-6.1 Sol XHigh** for difficult implementation, in-depth code review, and complex debugging.
+
+The [Artificial Analysis Codex results](https://artificialanalysis.ai/agents/coding-agents/comparisons/codex-vs-qwen-code#models), checked on 2026-11-25, compare both models using the **Codex harness at Max reasoning**. Higher scores are better:
+
+| Evaluation | GPT-6.1 Sol Max | GPT-6.2 Sol Max |
+| --- | --- | --- |
+| Coding Agent Index v2.1 (composite) | 52 | 49 |
+| FrontierCode-AA 2.0 | 42 | 42 |
+| SWE-Atlas-QnA-AA | 60 | 46 |
+| Terminal-Bench 4.1 | 54 | 58 |
+
+These results support task-specific model selection: 6.1 slightly leads on this composite and ties on one component, while 6.2 leads on terminal tasks. The published Max results differ from this skill's XHigh/High configurations; use project tests and acceptance results to judge actual performance.
 
 ### Why Terra has this role
 
