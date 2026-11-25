@@ -32,6 +32,10 @@ GPT-6.1 Sol 在部分公開編程評測中仍與 GPT-6.2 Sol 持平或領先，�
 
 這些結果支持按任務保留模型：6.1 在上述綜合指數略勝、部分項目持平，6.2 則在終端任務領先。評測使用的 Max 與本 skill 的 XHigh／High 配置不同，實際選型仍應依專案測試與驗收結果判斷。
 
+[CodeRabbit 的實務評測](https://www.coderabbit.ai/blog/gpt-6-2-sol-and-astra-review)（2026-11-19）也提供保留 6.1 作 code review 的理由。在其 High reasoning 配置中，6.1 找到 58／81 個已知問題，6.2 找到 60／81；6.1 的 benchmark precision 較高（35.3% 對 25.9%），每次審查紀錄成本也較低（$0.772 對 $1.146）。作者建議維持目前審查預設，繼續測試新模型。
+
+這些是混合多模型 pipeline、各配置只跑一次的結果；成本來自重播執行，並非正式環境成本估算。它們可作為保留 6.1 的實務依據，但不能當成純模型排名或本 skill XHigh 配置的實測結果。
+
 ## 為何這樣安排 Terra
 
 根據 [OpenAI 官方介紹](https://openai.com/zh-Hant/index/introducing-gpt-6-1-terra/)與 [OpenAI Docs 模型選擇指引](https://developers.openai.com/api/docs/guides/model-selection)，Terra 適合視覺、電腦操作、文字與局部程式工作，最複雜的程式工作仍適合 Sol。因此本 skill 採以下路由；這是工作流設計，不是每項任務的效能保證。
@@ -142,6 +146,10 @@ The [Artificial Analysis Codex results](https://artificialanalysis.ai/agents/cod
 | Terminal-Bench 4.1 | 54 | 58 |
 
 These results support task-specific model selection: 6.1 slightly leads on this composite and ties on one component, while 6.2 leads on terminal tasks. The published Max results differ from this skill's XHigh/High configurations; use project tests and acceptance results to judge actual performance.
+
+[CodeRabbit's review](https://www.coderabbit.ai/blog/gpt-6-2-sol-and-astra-review) (2026-11-19) provides another reason to retain 6.1 for code review. In its High-reasoning configurations, 6.1 caught 58 of 81 known issues versus 60 for 6.2, with higher benchmark precision (35.3% versus 25.9%) and lower recorded cost per review ($0.772 versus $1.146). The authors recommend keeping current review defaults while testing further.
+
+Each mixed-model pipeline configuration ran once. Costs reflect replay runs, not production estimates. These results support retaining 6.1 as an option, but do not establish a model-only ranking or validate this skill's XHigh configuration.
 
 ### Why Terra has this role
 
